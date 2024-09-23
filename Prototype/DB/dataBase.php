@@ -1,25 +1,28 @@
-<?php 
-// method pour retirée ou ajouté les donnée 
+<?php
 
-class DataBase{
-private $filePath = 'DB/livres.json';
+class DataBase {
+    public $livres =[] ;
+    private $filePath = 'DB/livres.txt';
+    public function __construct()
+    {
+        return $this->getData();
+    }
 
-public function __construct()
-{
-    $this-> getData();
-}
-public function getData(){
- $jsonData = file_get_contents($this->filePath);
- return json_decode($jsonData, true);
-}
+    private function getData() {
+        if (file_exists($this->filePath)) {
+            $jsonData = file_get_contents($this->filePath);
+            $data = unserialize($jsonData);
+            $this->livres = $data->livres ;
+        }
+      
+    }
 
-public function setData(){
-    $jsonData = json_encode($this , JSON_PRETTY_PRINT);
-    file_put_contents($this->filePath ,$jsonData);
-    
-}
-public function enregistrerData(){
-    $this->setData();
-}
+    private function setData() {
+        $jsonData = serialize($this);
+        file_put_contents($this->filePath, $jsonData);
+    }
 
+    public function enregistrerData(){
+        return $this->setData();
+    }
 }

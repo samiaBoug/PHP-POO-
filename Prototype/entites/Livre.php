@@ -5,9 +5,9 @@ class Livre{
    private $titre;
    private $ISBN ;
    
-   public function __construct($id, $titre, $ISBN)
+   public function __construct($titre, $ISBN)
    {
-      $this->id = $id;
+      $this->id = time();
       $this->titre = $titre ;
       $this->ISBN = $ISBN ;
    }

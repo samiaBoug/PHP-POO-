@@ -2,7 +2,7 @@
 left to right direction
 actor Admin
 actor Reader
-rectangle library{
+rectangle Library-Manager{
 usecase "Manage Books" as UC_ManageBook
 usecase "View Available Books" as UC_ViewAvailableBooks
 usecase "Advanced Search" as UC_AdvancedSearch

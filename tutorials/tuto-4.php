@@ -1,20 +1,22 @@
 <?php 
 
+// Polymorphisme par substitution 
+
 class Animal {
     public function faireDuBruit() {
-        echo "L'animal fait du bruit.";
+        echo "L'animal fait du bruit.\n";
     }
 }
 
 class Chien extends Animal {
     public function faireDuBruit() {
-        echo "Ouaf !";
+        echo "Ouaf !\n";
     }
 }
 
 class Chat extends Animal {
     public function faireDuBruit() {
-        echo "Miaou !";
+        echo "Miaou ! \n";
     }
 }
 

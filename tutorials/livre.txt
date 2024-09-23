@@ -1,0 +1,1 @@
+a:3:{s:2:"id";i:1;s:5:"titre";s:14:"Titre du Livre";s:4:"ISBN";i:123456;}
