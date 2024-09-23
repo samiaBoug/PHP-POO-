@@ -1,0 +1,17 @@
+{
+    "livres" : [
+        {
+            "id" : 1 ,
+            "titre" : "titre",
+            "ISBN" : 12345678
+        }
+        
+    ],
+
+    "auteurs": [
+
+    ],
+    "lecteurs" : [
+
+    ]
+}
