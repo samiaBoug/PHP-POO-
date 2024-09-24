@@ -11,7 +11,7 @@ class LivreService {
     }
     
     public function getLivres() {
-    return $this->livreDAO->getLivre();
+    return $this->livreDAO->getLivres();
     }
 
     public function setLivre($livre) {

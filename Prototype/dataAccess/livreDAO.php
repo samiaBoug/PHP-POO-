@@ -1,13 +1,11 @@
 <?php
-// pour faire les requetes afficher et ajouter 
 
 require_once 'DB/dataBase.php';
 
 class LivreDAO {
 
-    public function getLivre() {
+    public function getLivres() {
         $dataBase = new DataBase();
-  
         return $dataBase->livres ;
 
     }

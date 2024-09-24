@@ -2,28 +2,29 @@
 require_once 'services/LivreService.php';
 require_once 'entites/Livre.php';
 
+
 class PresentationLivre {
     
+
     public function afficherLivres() {
+        echo "=========================\n";
+        echo "Liste des livres :\n";
+        echo "=========================\n";
 
         $livreService =new livreService();
         $livres = $livreService->getLivres();
-        
+        // var_dump($livres);
 
-        if (empty($livres)) {
-            echo "Aucun livre disponible.\n";
-        } else {
-            echo "=========================\n";
-            echo "Liste des livres :\n";
-    
+        // if (empty($livres)) {
+        //     echo "Aucun livre disponible.\n";
+        // } else {
             foreach ($livres as $livre) {
-                echo "__________________________\n";
+                echo "\n__________________________\n";
                 echo "ISBN : " . $livre->getISBN() . "\n";
                 echo "Titre : " . $livre->getTitre() . "\n";
+              
 
-            }
-            echo "__________________________\n";
-
+            // }
         }
     }
 
@@ -65,5 +66,7 @@ class PresentationLivre {
     }
 }
 
-
+// Exemple d'utilisation
+$presentation = new PresentationLivre();
+$presentation->run();
 ?>
