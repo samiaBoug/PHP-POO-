@@ -1,5 +1,5 @@
 <?php
-    require_once 'dataAccess/dataDAO.php';
+    require_once '../dataAccess/livreDAO.php';
 
     class livreService{
         private $DAO ;
@@ -9,7 +9,7 @@
             $this->DAO = new livreDAO ;
         }
 
-        public function getLivre(){
+        public function getLivres(){
             return $this->DAO->getLivre();
         }
 

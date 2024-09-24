@@ -1,5 +1,5 @@
 <?php 
-require_once 'DB/dataBase.php';
+require_once '../DB/dataBase.php';
 class livreDAO{
     private $dataBase ;
     

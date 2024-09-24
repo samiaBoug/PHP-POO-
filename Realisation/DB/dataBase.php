@@ -1,7 +1,7 @@
 <?php
 
  class dataBase{
-    private $filePath = 'DB/livres.txt';
+    private $filePath = '../DB/livres.txt';
     public $livres=[];
 
         public function __construct()
@@ -9,12 +9,15 @@
             return $this->getData();
         }
         private function getData(){
-            //recuperer tous les données 
+            if(file_exists($this->filePath)){
+                            //recuperer tous les données 
             $jsonData = file_get_contents($this->filePath);
             //unserialisation 
             $data = unserialize($jsonData);
             //recuperer livres 
             $this->livres = $data->livres ;
+            }
+
 
         }
         private function setData(){
