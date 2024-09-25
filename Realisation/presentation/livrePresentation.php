@@ -34,9 +34,9 @@ class PresentationLivre {
         }
     }
 
-    public function ajouterLivre($titre, $ISBN) {
+    public function ajouterLivre($titre, $ISBN , $idAuteur) {
         $livreService = $this->livreService;
-        $nouvLivre = new livre($titre, $ISBN);
+        $nouvLivre = new livre($titre, $ISBN , $idAuteur);
         $livreService->setLivre($nouvLivre);
         echo $this->couleur("32", "Livre ajouté avec succès : Titre: $titre, ISBN: $ISBN\n"); // Vert pour succès
     }
@@ -93,7 +93,8 @@ class PresentationLivre {
             case 2:
                 $titre = readline($this->couleur("36", "Entrez le titre du livre : "));
                 $ISBN = readline($this->couleur("36", "Entrez l'ISBN du livre : "));
-                $this->ajouterLivre($titre, $ISBN);
+                $idAuteur = readline($this->couleur("36", "Entrez id du auteur :"));
+                $this->ajouterLivre($titre, $ISBN , $idAuteur);
                 break;
             case 3:
                 $ISBN = readline($this->couleur("36", "Entrez l'ISBN du livre que vous souhaitez supprimer : "));
