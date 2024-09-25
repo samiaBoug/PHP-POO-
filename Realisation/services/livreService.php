@@ -16,4 +16,12 @@
         public function setLivre($livre){
             return $this->DAO->addLivre($livre);
         }
+
+        public function deleteLivre($ISBN){
+            return $this->DAO->deleteLivre($ISBN);
+        }
+
+        public function updateLivre($ISBN, $nouveauLivre){
+            return $this->DAO->updateLivre($ISBN ,$nouveauLivre);
+        }
     }

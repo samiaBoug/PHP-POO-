@@ -1,7 +1,7 @@
 <?php
 
  class dataBase{
-    private $filePath = '../DB/livres.txt';
+    private $filePath = '../DB/db.txt';
     public $livres=[];
 
         public function __construct()
