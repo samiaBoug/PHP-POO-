@@ -1,6 +1,7 @@
 <?php
 require_once '../services/auteurService.php';
 require_once '../entites/auteur.php';
+require_once 'index.php';
 
 class PresentationAuteur {
     private $auteurService;
@@ -45,11 +46,11 @@ class PresentationAuteur {
     }
 
     public function modifierAuteur($id, $nouveauAuteur) {
-        $auteurs = $this->auteurService->getauteurs();
+        $auteurs = $this->auteurService->getAuteurs();
         $auteurTrouve = false;
         foreach ($auteurs as $auteur) {
             if ($auteur->getId() === $id) {
-                $this->auteurService->updateauteur($id, $nouveauAuteur);
+                $this->auteurService->updateAuteur($id, $nouveauAuteur);
                 $auteurTrouve = true;
                 echo $this->couleur("32", "Le auteur a été modifié avec succès.\n");
                 break;
@@ -64,7 +65,6 @@ class PresentationAuteur {
         $auteurs = $this->auteurService->getAuteurs();
         $auteurTrouve = false;
         foreach ($auteurs as $auteur) {
-
             if ($auteur->getId() === $id) {
                 $this->auteurService->deleteAuteur($id);
                 $auteurTrouve = true;
@@ -85,7 +85,8 @@ class PresentationAuteur {
         echo $this->couleur("36", "2. Ajouter un auteur\n");
         echo $this->couleur("36", "3. Supprimer un auteur\n");
         echo $this->couleur("36", "4. Modifier un auteur\n");
-        echo $this->couleur("36", "5. Quitter\n");
+        echo $this->couleur("36", "5. Retour \n");
+        echo $this->couleur("36", "6. Quitter\n");
         echo $this->couleur("34", "=========================\n");
 
         $option = readline($this->couleur("36", "Entrez votre choix : "));
@@ -105,13 +106,18 @@ class PresentationAuteur {
                 $this->suprimerAuteur($id);
                 break;
             case 4:
-                $ISBN = readline($this->couleur("36", "Entrez l'ISBN du auteur que vous souhaitez modifier : "));
-                $nouveauISBN = readline($this->couleur("36", "Entrez le nouveau ISBN du auteur : "));
-                $nouveauTitre = readline($this->couleur("36", "Entrez le nouveau titre du auteur : "));
-                $nouveauauteur = new auteur($nouveauTitre, $nouveauISBN);
-                $this->modifierauteur($ISBN, $nouveauauteur);
+                $id = intval(readline($this->couleur("36", "Entrez l'Id de l'auteur que vous souhaitez modifier : "))) ;
+                $nouveauNom = readline($this->couleur("36", "Entrez le nouveau nom du auteur : "));
+                $nouveauPrenom = readline($this->couleur("36", "Entrez le nouveau prenom du auteur : "));
+                $nouveauNationalite = readline($this->couleur("36", "Entrez la nouvelle nationalité du auteur : "));
+
+                $nouveauauteur = new auteur($nouveauNom, $nouveauPrenom , $nouveauNationalite);
+                $this->modifierauteur($id, $nouveauauteur);
                 break;
-            case 5:
+            case 5 :
+                $menuPrincipal = new mainPresentation();
+                $menuPrincipal->menuPrincipale();
+            case 6:
                 echo $this->couleur("32", "Au revoir!\n");
                 exit;
             default:

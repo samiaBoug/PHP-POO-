@@ -20,14 +20,25 @@ class auteurDAO{
 
     public function deleteAuteur($id){
         $auteurs = $this->baseDonne->auteurs ;
-        foreach($auteurs as $index=>$auteur){
+        foreach($auteurs as $index => $auteur){
             if($auteur->getId() === $id){
-                unset($auteur[$index]);
+                unset($auteurs[$index]);
+                break;
             }
         }
+        $this->baseDonne->auteurs = array_values($auteurs);
+        $this->baseDonne->enregisterData();
     }
 
     public function updateAuteur($id , $nouvauAuteur){
-
+        // trouver id 
+        $auteurs = $this->baseDonne->auteurs ;
+        foreach($auteurs as $index=>$auteur){
+            if($auteur->getId()=== $id){
+                $auteurs[$index]= $nouvauAuteur ;
+            }
+        }
+        $this->baseDonne->auteurs = $auteurs ;
+        $this->baseDonne->enregisterData();
     }
 }
