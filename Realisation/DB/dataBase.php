@@ -3,6 +3,9 @@
  class dataBase{
     private $filePath = '../DB/db.txt';
     public $livres=[];
+    public $auteurs =[];
+    public $lecteurs = [];
+    public $emprunts = [];
 
         public function __construct()
         {
@@ -16,6 +19,9 @@
             $data = unserialize($jsonData);
             //recuperer livres 
             $this->livres = $data->livres ;
+            $this->auteurs = $data->auteurs ;
+            $this->lecteurs = $data->lecteurs ;
+            $this->emprunts = $data->emprunts ;
             }
 
 

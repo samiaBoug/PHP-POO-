@@ -5,15 +5,15 @@ class livre{
     private $titre ;
     private $ISBN ;
     private $id_Auteur ;
-    private $id_emprunt ;
-    private $dataPublication ;
+    private $datePublication ;
 
-    public function __construct($titre , $ISBN  , $id_Auteur)
+    public function __construct($titre , $ISBN  , $id_Auteur , $datePublication)
     {
         $this->id = time();
         $this->titre = $titre;
         $this->ISBN = $ISBN ;
         $this->id_Auteur = $id_Auteur; 
+        $this->datePublication= $datePublication;
     }
 
     public function getTitre(){
@@ -39,5 +39,16 @@ class livre{
         $this->id_Auteur = $id_Auteur;
 
         return $this;
+    }
+
+  
+    public function getDatePublication()
+    {
+        return $this->datePublication;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }

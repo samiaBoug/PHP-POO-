@@ -1,6 +1,7 @@
 <?php
 require_once '../services/LivreService.php';
 require_once '../entites/Livre.php';
+require_once 'index.php';
 
 class PresentationLivre {
     private $livreService;
@@ -81,7 +82,8 @@ class PresentationLivre {
         echo $this->couleur("36", "2. Ajouter un livre\n");
         echo $this->couleur("36", "3. Supprimer un livre\n");
         echo $this->couleur("36", "4. Modifier un livre\n");
-        echo $this->couleur("36", "5. Quitter\n");
+        echo $this->couleur("36", "5. Retour\n");
+        echo $this->couleur("36", "6. Quitter\n");
         echo $this->couleur("34", "=========================\n");
 
         $option = readline($this->couleur("36", "Entrez votre choix : "));
@@ -107,7 +109,10 @@ class PresentationLivre {
                 $nouveauLivre = new livre($nouveauTitre, $nouveauISBN);
                 $this->modifierLivre($ISBN, $nouveauLivre);
                 break;
-            case 5:
+            case 5 :
+                $menuPrincipale = new mainPresentation();
+                $menuPrincipale->menuPrincipale();
+            case 6:
                 echo $this->couleur("32", "Au revoir!\n");
                 exit;
             default:

@@ -15,38 +15,41 @@ class PresentationAuteur {
         
     }
 
-    public function afficherauteurs() {
+    public function afficherAuteurs() {
         $auteurService = $this->auteurService;
-        $auteurs = $auteurService->getauteurs();
+        $auteurs = $auteurService->getAuteurs();
 
         if (empty($auteurs)) {
-            echo $this->couleur("31", "Aucun auteur disponible.\n"); // Rouge pour les erreurs
+            echo $this->couleur("31", "Aucun auteur disponible.\n"); 
         } else {
             echo $this->couleur("34", "=========================\n");
             echo $this->couleur("34", "Liste des auteurs :\n");
             echo $this->couleur("34", "=========================\n");
             foreach ($auteurs as $auteur) {
-                echo "\n" . $this->couleur("33", "__________________________\n"); // Jaune pour les séparateurs
-                echo $this->couleur("36", "ISBN : ") . $auteur->getISBN() . "\n";
-                echo $this->couleur("36", "Titre : ") . $auteur->getTitre() . "\n";
+                echo "\n" . $this->couleur("33", "__________________________\n");
+                echo $this->couleur("36", "Nom : ") . $auteur->getNom() . "\n";
+                echo $this->couleur("36", "Prenom : ") . $auteur->getPrenom() . "\n";
+                echo $this->couleur("36", "Nationalité : ") . $auteur->getNationalite() . "\n";
+                echo $this->couleur("36", "Id : ") . $auteur->getId() . "\n";
+
             }
             echo "\n" . $this->couleur("33", "__________________________\n");
         }
     }
 
-    public function ajouterauteur($titre, $ISBN , $idAuteur) {
+    public function ajouterAuteur($nom, $prenom , $nationalite) {
         $auteurService = $this->auteurService;
-        $nouvauteur = new auteur($titre, $ISBN , $idAuteur);
+        $nouvauteur = new auteur($nom, $prenom, $nationalite);
         $auteurService->setauteur($nouvauteur);
-        echo $this->couleur("32", "auteur ajouté avec succès : Titre: $titre, ISBN: $ISBN\n"); // Vert pour succès
+        echo $this->couleur("32", "auteur ajouté avec succès : Nom: $nom, Prenom: $prenom , nationalité : $nationalite \n"); // Vert pour succès
     }
 
-    public function modifierauteur($ISBN, $nouveauauteur) {
+    public function modifierAuteur($id, $nouveauAuteur) {
         $auteurs = $this->auteurService->getauteurs();
         $auteurTrouve = false;
         foreach ($auteurs as $auteur) {
-            if ($auteur->getISBN() === $ISBN) {
-                $this->auteurService->updateauteur($ISBN, $nouveauauteur);
+            if ($auteur->getId() === $id) {
+                $this->auteurService->updateauteur($id, $nouveauAuteur);
                 $auteurTrouve = true;
                 echo $this->couleur("32", "Le auteur a été modifié avec succès.\n");
                 break;
@@ -57,12 +60,13 @@ class PresentationAuteur {
         }
     }
 
-    public function suprimerauteur($ISBN) {
-        $auteurs = $this->auteurService->getauteurs();
+    public function suprimerAuteur($id) {
+        $auteurs = $this->auteurService->getAuteurs();
         $auteurTrouve = false;
         foreach ($auteurs as $auteur) {
-            if ($auteur->getISBN() === $ISBN) {
-                $this->auteurService->deleteauteur($ISBN);
+
+            if ($auteur->getId() === $id) {
+                $this->auteurService->deleteAuteur($id);
                 $auteurTrouve = true;
                 echo $this->couleur("32", "Le auteur est supprimé avec succès!\n");
                 break;
@@ -88,17 +92,17 @@ class PresentationAuteur {
 
         switch ($option) {
             case 1:
-                $this->afficherauteurs();
+                $this->afficherAuteurs();
                 break;
             case 2:
-                $titre = readline($this->couleur("36", "Entrez le titre du auteur : "));
-                $ISBN = readline($this->couleur("36", "Entrez l'ISBN du auteur : "));
-                $idAuteur = readline($this->couleur("36", "Entrez id du auteur :"));
-                $this->ajouterauteur($titre, $ISBN , $idAuteur);
+                $nom = readline($this->couleur("36", "Entrez le nom du auteur : "));
+                $prenom = readline($this->couleur("36", "Entrez le prenom du auteur : "));
+                $nationalite = readline($this->couleur("36", "Entrez la nationalité du auteur :"));
+                $this->ajouterAuteur($nom, $prenom , $nationalite);
                 break;
             case 3:
-                $ISBN = readline($this->couleur("36", "Entrez l'ISBN du auteur que vous souhaitez supprimer : "));
-                $this->suprimerauteur($ISBN);
+                $id =intval(readline($this->couleur("36", "Entrez l'id du auteur que vous souhaitez supprimer : ")));
+                $this->suprimerAuteur($id);
                 break;
             case 4:
                 $ISBN = readline($this->couleur("36", "Entrez l'ISBN du auteur que vous souhaitez modifier : "));
