@@ -1,7 +1,9 @@
 <?php 
 require_once '../services/LivreService.php';
 require_once '../services/auteurService.php';
+require_once '../services/empruntService.php';
 require_once '../entites/Livre.php';
+require_once '../entites/emprunt.php';
 require_once '../entites/auteur.php';
 
 

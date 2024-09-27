@@ -34,9 +34,11 @@
         foreach ($livres as $livre) {
             $estDisponible = true; 
             foreach ($emprunts as $emprunt) {
-                if ($emprunt->getIdLivre() == $livre->getId() && $emprunt->getDateReteurReel() == "") {
+                if ($emprunt->getId_livre() == $livre->getId() ) {
+                    if($emprunt->getDateReteurReel() === null || empty($emprunt->getDateReteurReel())){
                     $estDisponible = false; 
                     break; 
+                    }
                 }
             }
     

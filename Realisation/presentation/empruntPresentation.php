@@ -16,9 +16,9 @@ class Presentationemprunt {
         
     }
 
-    public function afficheremprunts() {
+    public function afficherEmprunts() {
         $empruntService = $this->empruntService;
-        $emprunts = $empruntService->getemprunts();
+        $emprunts = $empruntService->getEmprunts();
 
         if (empty($emprunts)) {
             echo $this->couleur("31", "Aucun emprunt disponible.\n"); 
@@ -100,10 +100,10 @@ class Presentationemprunt {
                 break;
             case 2:
                 $dateDebut = readline($this->couleur("36", "Entrez la date de début du emprunt : "));
-                $dateReteurPrevu = readline($this->couleur("36", "Entrez la date de retour du emprunt : "));
-                $dateReteurReel = readline($this->couleur("36", "Entrez la date de retour du emprunt :"));
-                $id_lecteur = readline($this->couleur("36", "Entrez l'id de lecteur du emprunt :"));
-                $id_livre = readline($this->couleur("36", "Entrez l'id de livre emprunt :"));
+                $dateReteurPrevu = readline($this->couleur("36", "Entrez la date de retour prévu du emprunt : "));
+                $dateReteurReel = readline($this->couleur("36", "Entrez la date de retour réelle du emprunt :"));
+                $id_lecteur = intval(readline($this->couleur("36", "Entrez l'id de lecteur du emprunt :")));
+                $id_livre = intval(readline($this->couleur("36", "Entrez l'id de livre emprunt :")));
 
                 $this->ajouterEmprunt($dateDebut ,$dateReteurPrevu, $dateReteurReel, $id_lecteur, $id_livre);
                 break;
@@ -116,8 +116,8 @@ class Presentationemprunt {
                 $dateDebut = readline($this->couleur("36", "Entrez le nouveau date de debut du emprunt : "));
                 $dateReteurPrevu = readline($this->couleur("36", "Entrez le nouveau date de retour prévu du emprunt : "));
                 $dateReteurReel = readline($this->couleur("36", "Entrez la nouvelle date de retour réelle du emprunt : "));
-                $id_lecteur = readline($this->couleur("36", "Entrez la nouvelle id de lecteur : "));
-                $id_livre = readline($this->couleur("36", "Entrez la nouvelle id de livre  : "));
+                $id_lecteur = intval(readline($this->couleur("36", "Entrez la nouvelle id de lecteur : ")));
+                $id_livre = intval(readline($this->couleur("36", "Entrez la nouvelle id de livre  : ")));
 
 
                 $nouveauEmprunt = new emprunt($dateDebut ,$dateReteurPrevu, $dateReteurReel, $id_lecteur, $id_livre);

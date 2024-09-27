@@ -32,21 +32,17 @@ class PresentationLivre {
             echo $this->couleur("34", "=========================\n");
     
             foreach ($livres as $livre) {
-                // Fetching authors
-                $auteurs = $this->auteurService->getAuteurs(); // Corrected from auteurServise to auteurService
+                $auteurs = $this->auteurService->getAuteurs(); 
                 $nomAuteur = "";
                 $prenomAuteur = "";
-    
-                // Find the author by ID
                 foreach ($auteurs as $auteur) {
                     if ($auteur->getId() === $livre->getId_Auteur()) {
                         $nomAuteur = $auteur->getNom();
                         $prenomAuteur = $auteur->getPrenom();
-                        break; // Exit loop once author is found
+                        break; 
                     }
                 }
     
-                // Display book details
                 echo "\n" . $this->couleur("33", "__________________________\n"); 
                 echo $this->couleur("36", "ISBN : ") . $livre->getISBN() . "\n";
                 echo $this->couleur("36", "Titre : ") . $livre->getTitre() . "\n";
