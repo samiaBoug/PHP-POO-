@@ -6,20 +6,20 @@ class empruntService{
         $this->DAO = new empruntDAO();
     }
 
-    public function getemprunts(){
-       return $this->DAO->getemprunts();
+    public function getEmprunts(){
+       return $this->DAO->getEmprunts();
     }
 
-    public function setemprunt($emprunt){
-        return $this->DAO->setemprunt($emprunt);
+    public function addEmprunt($emprunt){
+        return $this->DAO->setEmprunt($emprunt);
     }
 
-    public function deleteemprunt($id){
-        return $this->DAO->deleteemprunt($id);
+    public function deleteEmprunt($id){
+        return $this->DAO->deleteEmprunt($id);
     }
 
-    public function updateemprunt($id , $nouveauemprunt){
-        return $this->DAO->updateemprunt($id , $nouveauemprunt);
+    public function updateEmprunt($id , $nouveauemprunt){
+        return $this->DAO->updateEmprunt($id , $nouveauemprunt);
 
     } 
 }

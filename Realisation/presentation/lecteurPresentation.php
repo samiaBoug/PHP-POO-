@@ -7,7 +7,7 @@ class Presentationlecteur {
     private $lecteurService;
     
     public function __construct() {
-        $this->lecteurService = new lecteurService;
+        $this->lecteurService = new lecteurService();
     }
 
     // Codes de couleurs ANSI

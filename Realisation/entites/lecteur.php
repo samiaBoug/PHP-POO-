@@ -6,6 +6,7 @@ class lecteur{
     private $prenom ;
     private $numCarte ;
     private $adresse ;
+    private $id_emprunt ;
 
     public function __construct($nom, $prenom , $numCarte, $adresse)
     {
@@ -14,6 +15,7 @@ class lecteur{
         $this->prenom = $prenom ;
         $this->numCarte = $numCarte;
         $this->adresse = $adresse ;
+        $this->id_emprunt = null;
     }
 
 

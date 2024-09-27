@@ -8,7 +8,7 @@ class livreDAO{
         $this->dataBase = new dataBase();
     }
 
-    public function getLivre(){
+    public function getLivres(){
        return $this->dataBase->livres ;
     }
 
@@ -40,6 +40,11 @@ class livreDAO{
         }   
         $this->dataBase->livres = $livres;
         $this->dataBase->enregisterData();
+    }
+
+    public function afficherLivreDispo(){
+        $livres = $this->getLivres();
+        
     }
     
     

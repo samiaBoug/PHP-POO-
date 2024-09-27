@@ -1,5 +1,6 @@
 <?php
     require_once '../dataAccess/livreDAO.php';
+    require_once '../dataAccess/empruntDAO.php';
 
     class livreService{
         private $DAO ;
@@ -10,7 +11,7 @@
         }
 
         public function getLivres(){
-            return $this->DAO->getLivre();
+            return $this->DAO->getLivres();
         }
 
         public function setLivre($livre){
@@ -23,5 +24,26 @@
 
         public function updateLivre($ISBN, $nouveauLivre){
             return $this->DAO->updateLivre($ISBN ,$nouveauLivre);
+        }
+
+        public function getDispoLivres(){
+            $livres = $this->getLivres();
+            $empruntDAO = new empruntDAO();
+            $emprunts = $empruntDAO->getEmprunts();
+            $livresDisponibles = [];
+        foreach ($livres as $livre) {
+            $estDisponible = true; 
+            foreach ($emprunts as $emprunt) {
+                if ($emprunt->getIdLivre() == $livre->getId() && $emprunt->getDateReteurReel() == "") {
+                    $estDisponible = false; 
+                    break; 
+                }
+            }
+    
+            if ($estDisponible) {
+                $livresDisponibles[] = $livre;
+            }
+        }
+        return $livresDisponibles;
         }
     }

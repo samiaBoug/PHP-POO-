@@ -1,13 +1,16 @@
 <?php
-require_once '../services/LivreService.php';
-require_once '../entites/Livre.php';
+require_once '../services/livreService.php';
+require_once '../services/auteurService.php';
+require_once '../entites/livre.php';
 require_once 'index.php';
 
 class PresentationLivre {
     private $livreService;
+    private $auteurService ;
     
     public function __construct() {
-        $this->livreService = new livreService;
+        $this->livreService = new livreService();
+        $this->auteurService = new auteurService() ;
     }
 
     // Codes de couleurs ANSI
@@ -17,29 +20,52 @@ class PresentationLivre {
     }
 
     public function afficherLivres() {
-        $livreService = $this->livreService;
+        $livreService = $this->livreService; // Assuming livreService is already initialized
         $livres = $livreService->getLivres();
-
+    
+        // Check if the list of books is empty
         if (empty($livres)) {
-            echo $this->couleur("31", "Aucun livre disponible.\n"); // Rouge pour les erreurs
+            echo $this->couleur("31", "Aucun livre disponible.\n"); 
         } else {
             echo $this->couleur("34", "=========================\n");
             echo $this->couleur("34", "Liste des livres :\n");
             echo $this->couleur("34", "=========================\n");
+    
             foreach ($livres as $livre) {
-                echo "\n" . $this->couleur("33", "__________________________\n"); // Jaune pour les séparateurs
+                // Fetching authors
+                $auteurs = $this->auteurService->getAuteurs(); // Corrected from auteurServise to auteurService
+                $nomAuteur = "";
+                $prenomAuteur = "";
+    
+                // Find the author by ID
+                foreach ($auteurs as $auteur) {
+                    if ($auteur->getId() === $livre->getId_Auteur()) {
+                        $nomAuteur = $auteur->getNom();
+                        $prenomAuteur = $auteur->getPrenom();
+                        break; // Exit loop once author is found
+                    }
+                }
+    
+                // Display book details
+                echo "\n" . $this->couleur("33", "__________________________\n"); 
                 echo $this->couleur("36", "ISBN : ") . $livre->getISBN() . "\n";
                 echo $this->couleur("36", "Titre : ") . $livre->getTitre() . "\n";
+                echo $this->couleur("36", "Auteur : ") . $nomAuteur . " " . $prenomAuteur . "\n";
+                echo $this->couleur("36", "Id : ") . $livre->getId(). "\n";
+
+                
             }
+    
             echo "\n" . $this->couleur("33", "__________________________\n");
         }
     }
+    
 
-    public function ajouterLivre($titre, $ISBN , $idAuteur) {
+    public function ajouterLivre($titre, $ISBN , $idAuteur , $datePublication) {
         $livreService = $this->livreService;
-        $nouvLivre = new livre($titre, $ISBN , $idAuteur);
+        $nouvLivre = new livre($titre, $ISBN , $idAuteur, $datePublication);
         $livreService->setLivre($nouvLivre);
-        echo $this->couleur("32", "Livre ajouté avec succès : Titre: $titre, ISBN: $ISBN\n"); // Vert pour succès
+        echo $this->couleur("32", "Livre ajouté avec succès : Titre: $titre, ISBN: $ISBN\n"); 
     }
 
     public function modifierLivre($ISBN, $nouveauLivre) {
@@ -54,7 +80,7 @@ class PresentationLivre {
             }
         }
         if (!$livreTrouve) {
-            echo $this->couleur("31", "Le livre que vous cherchez est introuvable.\n"); // Rouge pour erreurs
+            echo $this->couleur("31", "Le livre que vous cherchez est introuvable.\n"); 
         }
     }
 
@@ -95,8 +121,9 @@ class PresentationLivre {
             case 2:
                 $titre = readline($this->couleur("36", "Entrez le titre du livre : "));
                 $ISBN = readline($this->couleur("36", "Entrez l'ISBN du livre : "));
-                $idAuteur = readline($this->couleur("36", "Entrez id du auteur :"));
-                $this->ajouterLivre($titre, $ISBN , $idAuteur);
+                $idAuteur = intval(readline($this->couleur("36", "Entrez id du livre :")));
+                $datePublication =readline($this->couleur("36", "Entrez date de publication de livre :"));
+                $this->ajouterLivre($titre, $ISBN , $idAuteur, $datePublication);
                 break;
             case 3:
                 $ISBN = readline($this->couleur("36", "Entrez l'ISBN du livre que vous souhaitez supprimer : "));
@@ -106,7 +133,9 @@ class PresentationLivre {
                 $ISBN = readline($this->couleur("36", "Entrez l'ISBN du livre que vous souhaitez modifier : "));
                 $nouveauISBN = readline($this->couleur("36", "Entrez le nouveau ISBN du livre : "));
                 $nouveauTitre = readline($this->couleur("36", "Entrez le nouveau titre du livre : "));
-                $nouveauLivre = new livre($nouveauTitre, $nouveauISBN);
+                $nouveauAuteur_id ="" ;
+                $nouveauDatePub ="" ;
+                $nouveauLivre = new livre($nouveauTitre, $nouveauISBN , $nouveauDatePub, $nouveauAuteur_id);
                 $this->modifierLivre($ISBN, $nouveauLivre);
                 break;
             case 5 :

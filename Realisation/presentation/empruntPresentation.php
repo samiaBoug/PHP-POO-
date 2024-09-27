@@ -32,25 +32,28 @@ class Presentationemprunt {
                 echo $this->couleur("36", "Date de retour prévu : ") . $emprunt->getDateReteurPrevu() . "\n";
                 echo $this->couleur("36", "Date de retour reélle : ") . $emprunt->getDateReteurReel() . "\n";
                 echo $this->couleur("36", "Id : ") . $emprunt->getId() . "\n";
+                echo $this->couleur("36", "Id lecteur : ") . $emprunt->getId_lecteur() . "\n";
+                echo $this->couleur("36", "Id livre : ") . $emprunt->getId_livre() . "\n";
+
 
             }
             echo "\n" . $this->couleur("33", "__________________________\n");
         }
     }
 
-    public function ajouteremprunt($nom, $prenom , $nationalite) {
+    public function ajouterEmprunt($dateDebut ,$dateReteurPrevu, $dateReteurReel, $id_lecteur, $id_livre ) {
         $empruntService = $this->empruntService;
-        $nouvemprunt = new emprunt($nom, $prenom, $nationalite);
-        $empruntService->setemprunt($nouvemprunt);
-        echo $this->couleur("32", "emprunt ajouté avec succès : Nom: $nom, Prenom: $prenom , nationalité : $nationalite \n"); // Vert pour succès
+        $nouvemprunt = new emprunt($dateDebut ,$dateReteurPrevu, $dateReteurReel, $id_lecteur, $id_livre );
+        $empruntService->addEmprunt($nouvemprunt);
+        echo $this->couleur("32", "emprunt ajouté avec succès : \n"); 
     }
 
-    public function modifieremprunt($id, $nouveauemprunt) {
-        $emprunts = $this->empruntService->getemprunts();
+    public function modifierEmprunt($id, $nouveauEmprunt) {
+        $emprunts = $this->empruntService->getEmprunts();
         $empruntTrouve = false;
         foreach ($emprunts as $emprunt) {
             if ($emprunt->getId() === $id) {
-                $this->empruntService->updateemprunt($id, $nouveauemprunt);
+                $this->empruntService->updateEmprunt($id, $nouveauEmprunt);
                 $empruntTrouve = true;
                 echo $this->couleur("32", "Le emprunt a été modifié avec succès.\n");
                 break;
@@ -61,12 +64,12 @@ class Presentationemprunt {
         }
     }
 
-    public function suprimeremprunt($id) {
-        $emprunts = $this->empruntService->getemprunts();
+    public function suprimerEmprunt($id) {
+        $emprunts = $this->empruntService->getEmprunts();
         $empruntTrouve = false;
         foreach ($emprunts as $emprunt) {
             if ($emprunt->getId() === $id) {
-                $this->empruntService->deleteemprunt($id);
+                $this->empruntService->deleteEmprunt($id);
                 $empruntTrouve = true;
                 echo $this->couleur("32", "Le emprunt est supprimé avec succès!\n");
                 break;
@@ -93,13 +96,16 @@ class Presentationemprunt {
 
         switch ($option) {
             case 1:
-                $this->afficheremprunts();
+                $this->afficherEmprunts();
                 break;
             case 2:
-                $nom = readline($this->couleur("36", "Entrez le nom du emprunt : "));
-                $prenom = readline($this->couleur("36", "Entrez le prenom du emprunt : "));
-                $nationalite = readline($this->couleur("36", "Entrez la nationalité du emprunt :"));
-                $this->ajouteremprunt($nom, $prenom , $nationalite);
+                $dateDebut = readline($this->couleur("36", "Entrez la date de début du emprunt : "));
+                $dateReteurPrevu = readline($this->couleur("36", "Entrez la date de retour du emprunt : "));
+                $dateReteurReel = readline($this->couleur("36", "Entrez la date de retour du emprunt :"));
+                $id_lecteur = readline($this->couleur("36", "Entrez l'id de lecteur du emprunt :"));
+                $id_livre = readline($this->couleur("36", "Entrez l'id de livre emprunt :"));
+
+                $this->ajouterEmprunt($dateDebut ,$dateReteurPrevu, $dateReteurReel, $id_lecteur, $id_livre);
                 break;
             case 3:
                 $id =intval(readline($this->couleur("36", "Entrez l'id du emprunt que vous souhaitez supprimer : ")));
@@ -107,12 +113,15 @@ class Presentationemprunt {
                 break;
             case 4:
                 $id = intval(readline($this->couleur("36", "Entrez l'Id de l'emprunt que vous souhaitez modifier : "))) ;
-                $nouveauNom = readline($this->couleur("36", "Entrez le nouveau nom du emprunt : "));
-                $nouveauPrenom = readline($this->couleur("36", "Entrez le nouveau prenom du emprunt : "));
-                $nouveauNationalite = readline($this->couleur("36", "Entrez la nouvelle nationalité du emprunt : "));
+                $dateDebut = readline($this->couleur("36", "Entrez le nouveau date de debut du emprunt : "));
+                $dateReteurPrevu = readline($this->couleur("36", "Entrez le nouveau date de retour prévu du emprunt : "));
+                $dateReteurReel = readline($this->couleur("36", "Entrez la nouvelle date de retour réelle du emprunt : "));
+                $id_lecteur = readline($this->couleur("36", "Entrez la nouvelle id de lecteur : "));
+                $id_livre = readline($this->couleur("36", "Entrez la nouvelle id de livre  : "));
 
-                $nouveauemprunt = new emprunt($nouveauNom, $nouveauPrenom , $nouveauNationalite);
-                $this->modifieremprunt($id, $nouveauemprunt);
+
+                $nouveauEmprunt = new emprunt($dateDebut ,$dateReteurPrevu, $dateReteurReel, $id_lecteur, $id_livre);
+                $this->modifierEmprunt($id, $nouveauEmprunt);
                 break;
             case 5 :
                 $menuPrincipal = new mainPresentation();
